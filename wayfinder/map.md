@@ -1,7 +1,7 @@
 ---
 title: 100 push-ups coach repo
 labels: [wayfinder:map]
-status: open
+status: closed
 ---
 
 ## Destination
@@ -23,6 +23,9 @@ A spec for a tool-agnostic push-up coach repo: chosen program, log and plan form
 - [Adjustment rules for session reports](tickets/003-adjustment-rules.md): 8 ordered rules (safety first, pass or fail repeats the Day, Max Test every 2nd Cycle sets the Column, Deload after 2 flat tests or 10 Cycles); RPE is logged only.
 - [Log and plan file formats](tickets/004-file-formats.md): append-only `_data/sessions.csv` (reps as space-separated sets, no totals), `plan.md` rewritten each check-in with state in its front matter, static `program.md` for tables and rules.
 - [AGENTS.md check-in routine](tickets/005-agents-routine.md): free-text report → write without confirming → one commit to `main` → reply of at most 10 lines with the next session; paste fallback for tools without git; no `CLAUDE.md`, since Claude Code reads `AGENTS.md`.
+- [Site pages and theme](tickets/006-site-pages.md): 4 pages (home, progress with charts and log table, plan, program), default Primer theme, no `_config.yml`, deploy from `main`.
+
+Destination reached on 2026-10-02: no open tickets, no fog. Next step: the build session.
 
 ## Not yet specified
 
