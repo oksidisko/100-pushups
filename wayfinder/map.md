@@ -21,11 +21,11 @@ A spec for a tool-agnostic push-up coach repo: chosen program, log and plan form
 - [Which proven program gets 50 to 100 unbroken push-ups?](tickets/001-program-choice.md): Hundred Pushups, Week 6 Column 1, 3 sessions plus a weekly Max Test, repeat Week 6 until 100.
 - [How to chart a markdown log on plain GitHub Pages?](tickets/002-chart-on-pages.md): `_data/sessions.csv` plus a `progress.md` page with Liquid-generated Mermaid charts, about 15 lines.
 - [Adjustment rules for session reports](tickets/003-adjustment-rules.md): 8 ordered rules (safety first, pass or fail repeats the Day, Max Test every 2nd Cycle sets the Column, Deload after 2 flat tests or 10 Cycles); RPE is logged only.
+- [Log and plan file formats](tickets/004-file-formats.md): append-only `_data/sessions.csv` (reps as space-separated sets, no totals), `plan.md` rewritten each check-in with state in its front matter, static `program.md` for tables and rules.
 
 ## Not yet specified
 
 - How the site looks beyond the chart: which pages exist, whether the plan and log render as pages, theme.
-- Full repo file layout: which files exist besides the program, log and `AGENTS.md`. This depends on the formats ticket and the routine ticket.
 
 ## Out of scope
 
