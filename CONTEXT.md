@@ -19,6 +19,19 @@ _Avoid_: PR attempt, max set
 One structured training block on a given day, made of several sets. What the user reports after training: reps per set, **RPE**, notes, optional **Pain Flag**.
 _Avoid_: workout, training (as a noun for one block)
 
+**Cycle**:
+One pass of Day 1 → Day 2 → Day 3 of the program, in order, with at least one rest day between Sessions. Counted by sequence, not calendar.
+_Avoid_: week (the program says "week", but a Cycle can take longer than 7 days)
+
+**Column**:
+The program's difficulty level within a week (C1, C2, C3), set only by the latest **Max Test**.
+
+**Failed Session**:
+A **Session** where any fixed set came up short, or the final "+" set fell below its number.
+
+**Deload**:
+A full rest week with no push-ups, followed by a **Max Test**.
+
 **RPE**:
 Rate of perceived exertion for a **Session**, 1 (trivial) to 10 (nothing left).
 
