@@ -6,5 +6,8 @@
     { "binding": "DB", "database_name": "pushups", "database_id": "8fb67dd2-690a-4de1-969a-e2019c17562a" }
   ],
   // Filled in after Cloudflare Access is set up; /log refuses everything until then.
-  "vars": { "TEAM_DOMAIN": "", "POLICY_AUD": "" }
+  "vars": {
+    "TEAM_DOMAIN": "proud-river-9635.cloudflareaccess.com",
+    "POLICY_AUD": "82bcc0d45fcb37e29a7c3e1ff0d34e1c0fb385c75b00f648a065ab306a71c418"
+  }
 }
