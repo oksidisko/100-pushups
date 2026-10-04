@@ -38,5 +38,6 @@ The 8 adjustment rules are deterministic, so code applies them every time. The L
   - Progress: a Chart.js line of Max Tests with a 100 goal line, weekly volume bars, and the log table.
   - Plan and program pages.
   - Notes and pain values are public too.
+  - Deploy note (2026-10-04): for now the whole site is behind Access. Access on a `workers.dev` URL protects the whole Worker and has no path option. Making these pages public needs a custom domain.
 - **Repo:** public on GitHub, auto-deployed by Workers Builds on every push to `main`.
 - **Start:** seed one Max Test row of 50 on 2026-10-01. The first Session is Week 6, C1, Day 1.
