@@ -28,13 +28,24 @@ test('pass advances, every 2nd Cycle ends in a Max Test', () => {
   assert.equal(p.earliest, '2026-10-16');
 });
 
-test('one fail repeats the Day, two fails repeat the Cycle', () => {
-  const rows = [...base, session('2026-10-04', 1), session('2026-10-06', 2, false)];
-  assert.equal(nextSession(rows, '2026-10-07').next, '2');
-  rows.push(session('2026-10-08', 2), session('2026-10-10', 3, false));
-  const p = nextSession(rows, '2026-10-11');
+test('a fail never blocks: carry on, the Cycle repeats at the end', () => {
+  const rows = [...base, session('2026-10-04', 1, false)];
+  assert.equal(nextSession(rows, '2026-10-05').next, '2');
+  rows.push(session('2026-10-06', 2), session('2026-10-08', 3));
+  const p = nextSession(rows, '2026-10-09');
   assert.equal(p.next, '1');
+  assert.match(p.why, /repeat it/);
   assert.ok(p.banners.some((b) => b.level === 'ai'));
+});
+
+test('failing every Day still reaches the Max Test after 2 Cycles', () => {
+  const rows = [...base];
+  let date = '2026-10-04';
+  for (const day of [1, 2, 3, 1, 2, 3]) {
+    rows.push(session(date, day, false));
+    date = new Date(Date.parse(date) + 2 * 86_400_000).toISOString().slice(0, 10);
+  }
+  assert.equal(nextSession(rows, date).next, 'max');
 });
 
 test('pain above 3 → rest 2 days, repeat the Day', () => {

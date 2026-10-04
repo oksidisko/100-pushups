@@ -100,7 +100,7 @@ function planPage(rows: Row[]) {
   const body = p.next === 'max'
     ? '<p class="big">1 set, all out</p><p class="muted">Chest to the floor, arms locked out at the top, no rest. Film it if you can.</p>'
     : `<ol class="chips">${p.sets.map((n, i, a) => (i === a.length - 1 ? `<li class="last">${n}+</li>` : `<li>${n}</li>`)).join('')}</ol>
-<p class="muted">Rest ${p.restSeconds} s between sets, longer if needed. Last set: as many as you can, at least ${p.sets.at(-1)}.</p>`;
+<p class="muted">Rest ${p.restSeconds} s between sets. Not ready? Add 15 s at a time, up to ${2 * p.restSeconds} s. Last set: as many as you can, at least ${p.sets.at(-1)}.</p>`;
   return `${banners(p)}
 <section class="card hero">
 <p class="eyebrow">Next session · ${nice(p.earliest)}</p>

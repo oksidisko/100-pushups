@@ -27,7 +27,7 @@ _Avoid_: week (the program says "week", but a Cycle can take longer than 7 days)
 The program's difficulty level within a week (C1, C2, C3), set only by the latest **Max Test**.
 
 **Failed Session**:
-A **Session** where any fixed set came up short, or the final "+" set fell below its number.
+A **Session** where any fixed set came up short, or the final "+" set fell below its number. It never blocks the next Day; a **Cycle** with any Failed Session is repeated.
 
 **Deload**:
 A full rest week with no push-ups, followed by a **Max Test**.

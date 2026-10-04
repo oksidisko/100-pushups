@@ -87,27 +87,25 @@ export function replay(rows: Row[]) {
       if (pain > 3) {
         Object.assign(s, { next: String(day), restDays: 2 });
         s.why = `Pain ${pain}/10: rest 2 days, then repeat Day ${day}.`;
-      } else if (!ok) {
-        s.failed++;
-        if (s.failed >= 2) {
-          Object.assign(s, { failed: 0, next: '1', cycleRepeat: true });
-          s.why = `Day ${day} failed, 2nd fail this Cycle: repeat the whole Cycle.`;
-        } else {
-          s.next = String(day);
-          s.why = `Day ${day} failed: repeat it.`;
-        }
-      } else if (day < 3) {
-        s.next = String(day + 1);
-        s.why = `Day ${day} passed.`;
       } else {
-        s.cyclesSinceMax++;
-        s.cyclesSinceDeload++;
-        Object.assign(s, { failed: 0, idx: s.base, next: '1' });
-        s.why = 'Day 3 passed: Cycle complete.';
-        if (s.cyclesSinceDeload >= 10) startDeload('10 Cycles since the last Deload');
-        else if (s.cyclesSinceMax >= 2) {
-          s.next = 'max';
-          s.why = 'Day 3 passed: 2nd Cycle since the last Max Test, so test next.';
+        if (!ok) s.failed++;
+        const result = `Day ${day} ${ok ? 'passed' : 'failed'}`;
+        if (day < 3) {
+          s.next = String(day + 1);
+          s.why = ok ? `${result}.` : `${result}: carry on with Day ${day + 1}, the Cycle repeats at the end.`;
+        } else {
+          // A Cycle ends after Day 3, pass or fail, so the Max Test always comes and re-places you.
+          s.cyclesSinceMax++;
+          s.cyclesSinceDeload++;
+          s.cycleRepeat = s.failed > 0;
+          if (!s.cycleRepeat) s.idx = s.base;
+          s.why = s.cycleRepeat ? `${result}: Cycle had ${s.failed} fail${s.failed > 1 ? 's' : ''}, repeat it.` : `${result}: Cycle complete.`;
+          Object.assign(s, { failed: 0, next: '1' });
+          if (s.cyclesSinceDeload >= 10) startDeload('10 Cycles since the last Deload');
+          else if (s.cyclesSinceMax >= 2) {
+            s.next = 'max';
+            s.why += ' 2nd Cycle since the last Max Test, so test next.';
+          }
         }
       }
     }
@@ -136,7 +134,7 @@ export function nextSession(rows: Row[], today: string) {
   if (s.doctor) banners.push({ level: 'red', text: 'Severe swelling or dark urine was logged: see a doctor today. Training stays stopped until you log an Override.' });
   if (s.paused) banners.push({ level: 'red', text: 'Pain logged for more than 7 days in a row: plan paused, see a clinician. Log an Override once cleared.' });
   if ((lastRow?.pain ?? 0) > 0) banners.push({ level: 'ai', text: `Pain ${lastRow?.pain}/10 logged: worth asking the AI.` });
-  if (s.cycleRepeat) banners.push({ level: 'ai', text: '2nd fail this Cycle: worth asking the AI.' });
+  if (s.cycleRepeat) banners.push({ level: 'ai', text: 'Cycle had a fail and repeats: worth asking the AI.' });
   if (lastRow?.kind === 'max' && s.flat > 0) banners.push({ level: 'ai', text: 'Max Test with no gain: worth asking the AI.' });
   if (daysOff >= 14) banners.push({ level: 'ai', text: `Back after ${daysOff} days off: worth asking the AI.` });
   if (lastRow?.kind === 'max' && (s.maxes.at(-1) ?? 0) < 31) banners.push({ level: 'ai', text: 'Max Test below Week 5 range (31+): the program says redo Week 3 or 4. Ask the AI.' });

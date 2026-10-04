@@ -32,10 +32,11 @@ export const planned = (week: number, col: number, day: number) => TABLES[week]?
 export const RULES = [
   'Safety first: severe arm swelling or dark urine means stop and see a doctor today. Pain above 3/10 means rest 2 days, then repeat that Day. Pain logged for more than 7 days in a row pauses the plan: see a clinician. Pain up to 3/10 that is gone by morning is noted only.',
   'Missed days: up to 3 days off, continue. 4–13 days off, Max Test first. 14+ days off, Max Test, then one Column lower for one Cycle.',
-  'Pass or fail: a Session fails if any fixed set is short, or the final "+" set is below its number. On a fail, repeat the same Day. After 2 Failed Sessions in one Cycle, repeat the whole Cycle. Never shrink sets mid-session.',
-  'Sequence: Day 1 → Day 2 → Day 3, at least one rest day between Sessions. A Cycle completes when Day 3 passes. Max Test after every 2nd completed Cycle.',
+  'Pass or fail: a Session fails if any fixed set is short, or the final "+" set is below its number. A fail never blocks: go on to the next Day. A Cycle with any fail is repeated at the same Column. Never shrink sets mid-session.',
+  'Sequence: Day 1 → Day 2 → Day 3, at least one rest day between Sessions. A Cycle ends after Day 3, pass or fail. Max Test after every 2nd Cycle; it re-places you.',
   'Placement: the latest Max Test sets the Column. Week 6: 46–50 C1, 51–60 C2, over 60 C3. Below 46, Week 5: up to 35 C1, 36–40 C2, 41–45 C3. Above 60, repeat Week 6 C3.',
   'Deload: after 2 Max Tests in a row with no gain, or 10 Cycles since the start or the last Deload. One full rest week, then a Max Test.',
+  'Rest: 60 s on Day 1, 45 s on Days 2–3. If you are not ready for the next set, add 15 s at a time, up to double (120 s / 90 s). Never more: the reps are set for short rest.',
   'RPE is logged only. It never changes the plan.',
   'Goal: reached at any Max Test of 100 or more.',
 ];
