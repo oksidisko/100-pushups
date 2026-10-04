@@ -1,6 +1,6 @@
 # 100 Push-ups
 
-Training effort to reach 100 push-ups, coached by an LLM agent through files in this repo.
+Training effort to reach 100 push-ups, tracked by a small web app whose engine applies the program's rules; an LLM advises on demand.
 
 ## Language
 
@@ -38,3 +38,7 @@ Rate of perceived exertion for a **Session**, 1 (trivial) to 10 (nothing left).
 **Pain Flag**:
 A reported joint or tendon pain (not muscle burn). Overrides normal progression.
 _Avoid_: niggle, soreness (soreness is normal and not a flag)
+
+**Override**:
+A log row (`kind = override`) that manually sets the plan, e.g. after AI advice or clinician clearance. The engine replays it like any other row.
+_Avoid_: manual edit, hack

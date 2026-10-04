@@ -6,6 +6,8 @@ assignee: kirill
 blocked_by: [3, 4]
 ---
 
+> Superseded on 2026-10-04 by [007](007-cloudflare-app.md): a deterministic engine applies the rules every Session; the LLM advises only on demand via a "Copy for AI" prompt.
+
 ## Question
 
 What does `AGENTS.md` tell any LLM to do when the user checks in? The agent appends a row to `_data/sessions.csv`, rewrites `plan.md` including its front-matter state, and never edits `program.md` (see the formats ticket). Cover: the trigger message shape, parsing a free-text report into a log row, applying the adjustment rules, updating the plan, replying with the next session, and committing and pushing. Also decide the fallback for tools that can't touch git (e.g. ChatGPT web): does it output a patch or text for the user to paste, or is that tool simply unsupported?
