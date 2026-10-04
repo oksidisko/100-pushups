@@ -17,6 +17,7 @@ The 8 adjustment rules are deterministic, so code applies them every time. The L
 **Stack and data**
 1. One TypeScript Worker on Cloudflare, no framework: plain HTML, a little JS, and a JSON API of about 6 routes.
 2. A D1 database is the only record. Table columns: `date, kind, week, column, day, planned, done, result, rpe, pain, video, notes`. `kind` is `session`, `max` or `override`. `/export.csv` covers backups.
+   - Build note (2026-10-04): `planned` and `result` were dropped because they are derived from week, column, day and done, the same lesson as the dropped `total`. `column` is renamed `col`, and `danger` is added for the swelling or dark urine tick box.
 3. Engine: `nextSession(history)` is a pure function that replays every row through the rules in `003`. No plan state is stored. You can edit or delete any row, and the plan recomputes. One `node --test` file covers it.
 
 **Safety (rule 1), coded**

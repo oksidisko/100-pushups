@@ -1,0 +1,13 @@
+{
+  "name": "100-pushups",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test 'src/*.test.ts'",
+    "dev": "wrangler d1 migrations apply pushups --local && wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.147.0"
+  }
+}
