@@ -3,7 +3,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-09-01",
   "d1_databases": [
-    { "binding": "DB", "database_name": "pushups", "database_id": "REPLACE_AFTER_D1_CREATE" }
+    { "binding": "DB", "database_name": "pushups", "database_id": "8fb67dd2-690a-4de1-969a-e2019c17562a" }
   ],
   // Filled in after Cloudflare Access is set up; /log refuses everything until then.
   "vars": { "TEAM_DOMAIN": "", "POLICY_AUD": "" }
