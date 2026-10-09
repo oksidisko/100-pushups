@@ -141,23 +141,18 @@ function entries(rows: Row[], editable = false) {
 function progressPage(rows: Row[]) {
   const sorted = sortRows(rows);
   const maxes = sorted.filter((r) => r.kind === 'max').map((r) => ({ x: r.date, y: sets(r.done)[0] ?? 0 }));
-  // One bar per Cycle, labelled by its first date. A Max Test opens a bar and the Day 1 after it joins it.
-  const cycles: { x: string; y: number }[] = [];
-  let prev: Row | undefined;
-  for (const r of sorted.filter((r) => r.kind !== 'override')) {
-    if (!cycles.length || r.kind === 'max' || (r.day === '1' && prev?.kind !== 'max')) cycles.push({ x: r.date, y: 0 });
-    cycles.at(-1)!.y += sum(sets(r.done));
-    prev = r;
-  }
+  // One bar per date trained.
+  const days: Record<string, number> = {};
+  for (const r of sorted.filter((r) => r.kind !== 'override')) days[r.date] = (days[r.date] ?? 0) + sum(sets(r.done));
   const stat = (n: unknown, what: string) => `<div class="stat"><strong>${n}</strong><span>${what}</span></div>`;
   return `<h1>Progress</h1>
-<div class="stats">${stat(Math.max(0, ...maxes.map((m) => m.y)), 'best')}${stat(sorted.filter((r) => r.kind === 'session').length, 'sessions')}${stat(sum(cycles.map((c) => c.y)), 'total reps')}</div>
+<div class="stats">${stat(Math.max(0, ...maxes.map((m) => m.y)), 'best')}${stat(sorted.filter((r) => r.kind === 'session').length, 'sessions')}${stat(sum(Object.values(days)), 'total reps')}</div>
 <section class="card"><h2>Max Test</h2><div class="chart"><canvas id="max"></canvas></div></section>
-<section class="card"><h2>Volume per Cycle</h2><div class="chart"><canvas id="vol"></canvas></div></section>
+<section class="card"><h2>Volume per day</h2><div class="chart"><canvas id="vol"></canvas></div></section>
 <h2>Log</h2>${entries(rows)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-const maxes = ${json(maxes)}, cycles = ${json(cycles)};
+const maxes = ${json(maxes)}, days = ${json(days)};
 const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const short = (d) => new Date(d + 'T00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
 const accent = css('--accent');
@@ -167,8 +162,8 @@ new Chart(max, { type: 'line', data: { labels: maxes.map(m => short(m.x)), datas
   { label: 'Max Test', data: maxes.map(m => m.y), borderColor: accent, backgroundColor: accent, borderWidth: 3, pointRadius: 5, tension: 0.3 },
   { label: 'Goal', data: maxes.map(() => 100), borderColor: css('--muted'), borderDash: [6, 4], pointRadius: 0 },
 ] }, options: { plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, suggestedMax: 100, ticks: { stepSize: 25 } } } } });
-new Chart(vol, { type: 'bar', data: { labels: cycles.map(c => short(c.x)), datasets: [
-  { label: 'Reps', data: cycles.map(c => c.y), backgroundColor: accent, borderRadius: 8 },
+new Chart(vol, { type: 'bar', data: { labels: Object.keys(days).map(short), datasets: [
+  { label: 'Reps', data: Object.values(days), backgroundColor: accent, borderRadius: 8 },
 ] }, options: { plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } } });
 </script>`;
 }
